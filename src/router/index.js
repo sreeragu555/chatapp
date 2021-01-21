@@ -2,16 +2,28 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Chat from '@/components/Chat.vue'
+import Index from '@/components/Index.vue'
+import Test from '@/components/Test.vue'
 
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path:'/Chat',
-    name: 'Chat',
+    path:'/chat',
+    name: 'chat',
     component: Chat,
-    //props:true
+    props:true
+  },
+  {
+    path:'/index',
+    name: 'index',
+    component: Index,
+  },
+  {
+    path:'/test',
+    name: 'test',
+    component: Test,
   }
 ]
 

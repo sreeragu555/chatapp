@@ -14,17 +14,10 @@
     <v-text-field
       label="Enter your Name"
       v-model="name"
-      hide-details="auto"
+      
     ></v-text-field><br>
     <div class="text-center">
-    <v-btn
-      rounded
-      color="primary"
-      dark
-      @click="goToChat"
-    >
-      Let's Start
-    </v-btn>
+    <v-btn rounded color="primary" dark @click="chatforward()">Let's Start</v-btn>
   </div>
   </v-container>
 </v-card>
@@ -33,7 +26,7 @@
 <script>
 
   export default {
-    name: 'HelloWorld',
+    name: 'Index',
     components: {
  
   },
@@ -41,11 +34,11 @@
       name:''
     }),
     methods: {
-      goToChat(){
+      chatforward(){
         //console.log(this.name)
-        //this.$router.push({ path:'/Chat' , params: { name:this.name }})
+        this.$router.push({ name:'chat' , params: { name: this.name }})
         //console.log("Routed")
-        this.$router.push({name: 'Chat'});
+        //this.$router.push('/chat');
       }
     }
   }
