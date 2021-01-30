@@ -32,11 +32,12 @@
           </v-card-title>
         </v-img>
 
-        <v-card-text>
+        <v-card-text v-if="messages">
+          <div class="messages" v-chat-scroll>
           <div class="font-weight-bold ml-8 mb-2">
             Today
           </div>
-        <div v-if="messages">
+        <div >
           <v-timeline
             align-top
             dense
@@ -57,6 +58,7 @@
           
           </v-timeline>
           </div>
+          </div>
 
           <Input :name="name"/>
         </v-card-text>
@@ -68,6 +70,7 @@
 import Input from '@/components/Input';
 import db from '@/Firebase/init.js';
 import firebase from 'firebase/app';
+import moment from 'moment';
 export default {
     name: 'chat',
     props:['name'],
@@ -82,20 +85,25 @@ export default {
     },
     beforeCreate(){
       let ref=db.collection("Messages")
-            ref.onSnapshot(function(snapshot) {
-              console.log("messages array"+ this.messages)
-              snapshot.docChanges().forEach(function(change) {
-                  if (change.type === "added") {
-                    console.log("messages array"+ this.messages)
-                    var data=change.doc.data()
-                    console.log(data)
-                    //this.messages.push(data)
-                     // console.log(change.doc.data().From)
+            ref.onSnapshot(snapshot => {
+              snapshot.docChanges().forEach(element => {
+                if(element.type==="added"){
+                let doc=element.doc
+                this.messages.push({
+                  From:doc.data().From,
+                  Message:doc.data().Message,
+                  Time:moment(doc.data().Time).format('LLLL')
+                })
                 }
-        });
-      })
-      .ca
-    }
+              });
+            })
+      }
     
 }
 </script>
+<style scoped>
+.messages{
+  max-height:400px ;
+  overflow: auto;
+}
+</style>

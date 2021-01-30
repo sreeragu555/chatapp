@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="message in messages" :key="message.id">
-                <p>{{message.id}}//{{message.name}}</p>
+                <p>{{message.message}}//{{message.name}}</p>
         </li>
     </ul>
 </template>
@@ -10,10 +10,21 @@ export default {
     data(){
         return{
                 messages:[
-                    {id:"101",name:"SREERAG"},
-                    {id:"102",name:"SREEJITH"},
                 ]
         }
+    },
+    beforeCreate(){
+        let dbref=db.collection("Messages");
+                                 dbref.get().then(snapshot=>{
+                                     
+                                    snapshot.forEach(emp => {
+                                 var data = emp.data()
+                                 data.from:doc.data().From,
+                                data.time:doc.data().Time,
+                                data.messagenow:doc.data().Message,
+            //this.messages=doc.data();
+            this.messages.push(data),       
     }
+    
 }
 </script>
